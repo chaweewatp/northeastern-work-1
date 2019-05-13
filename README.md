@@ -14,6 +14,7 @@ The propotion of TOU customer and normal customer in each feeder
 
 
 The max load and load factor of TOU customer.
+
 <div style="width:830px; background-color:white; height:120px; overflow:auto;">
   <img src="images/scatter_max_load_vs_LF.png" width="900" height="600">
 </div>
