@@ -76,7 +76,7 @@ In addition, other states variables also transported.
 % why amr is need?
 
 % why need to analysis pattern
-In previous work, there is observation that the forecasting accuracy highly depend on hourly load patterns incorporate with other variables\cite{b2}. In addition, it can also help in long term applications i.e., model customer behavior under various incentive and pricing structures, planning processes\cite{b4}.
+In previous work, there is observation that the forecasting accuracy highly depend on hourly load patterns incorporate with other variables\cite{b2}. In addition, it can also help in long term applications i.e., model customer behavior under various incentive and pricing structures, planning processes\cite{b4}. The behavior of applicace in resident customer helps to forecast shorterm load\cite{b6}.
 
 
 % why monte carlo simulation
@@ -87,16 +87,26 @@ Monte Carlo simulation furnishes the decision-maker with a range of possible out
 The technique was first used by scientists working on the atom bomb; it was named for Monte Carlo, the Monaco resort town renowned for its casinos. Since its introduction in World War II, Monte Carlo simulation has been used to model a variety of physical and conceptual systems.
 
 
+%contribution
+In this article, we propose to generate behavior pattern for AMR customer consumption using confidence interval and Monte Carlo simulation. In particular, we make the following contributions:
+\begin{itemize}
+  \item We show how to extrat a feature of customer consumption behavior by confidence interval with quantile values in order to reduce mumber of data.
+  \item We formulate probabilistic function of individual customer behavior from extracted features.
+  \item We deploy Monte Carlo simulation technique to simulate power consumption using individual probabilistic customer behavior.
+\end{itemize}
+
+
 \section{Literature reviews}
 Here is Literature reviews.
 
 %what we has use AMR data
+The AMR data and individual major applicance usage learning are used to predict short-term residential load using Long short-term memory (LSTM) technique\cite{b6}.
+
 The big data has brought numberous tengible benefits to utilities and electricity uesers, which can be systemically concluded as follows:
-\textit{accident}
 \begin{itemize}
-\item \textit{Increasing System Stability & Reliability}  here is examples (find new ref.)
-\item \textit{Increasin Asset Utilization & Efficiency} here is exampleshere is examples
-\item \textit{Better Customer Experience & Satisfaction} here is examples
+  \item \textit{Increasing System Stability & Reliability}  here is examples (find new ref.)
+  \item \textit{Increasin Asset Utilization & Efficiency} here is exampleshere is examples
+  \item \textit{Better Customer Experience & Satisfaction} here is examples
 \end{itemize}
 
 There is several benefits of deploying AMR at homes and office. The mass rollout enables easier billing, fraud detection, forewarning of blackouts, smart real-time pricing schemes, demand response and efficient energy utilization.
@@ -114,20 +124,63 @@ Here is Problem formulation.
 The overall methodology is shown in Figure\ref{fig.overall_methodology}
 
 \begin{figure}[htbp]
-\centerline{\includegraphics{images/overall_methodology.png}}
-\caption{Conceptual methodology}
-\label{fig.overall_methodology}
+  \centerline{\includegraphics{images/overall_methodology.png}}
+  \caption{Conceptual methodology}
+  \label{fig.overall_methodology}
 \end{figure}
 
 
 
-\subsection{Data collection}
-where the data comes from: PEA
-total number of AMR customer:
-duration: 2 years???
+% \subsection{Data collection}
+% where the data comes from: PEA
+% total number of AMR customer:
+% duration: 2 years???
 \subsection{Pattern formulation using confidence intervals for quantiles calculation}
+In this paper 15 minutes based kilowatt data are collected from AMR system. These data are accumulate into 30-minutes based kiloWatt-hour.
 
+\begin{equation}
+X=\big\{ X^{1}, X^{2}, X^{3}, ..., X^{n} \big\}
+\label{eq.list_customer}
+\end{equation}
+\begin{equation}
+X^{n}=\big\{ X_{1}^{n}, X_{2}^{n}, X_{3}^{n}, ...,X_{d}^{n},..., X_{366}^{n}\big\}
+\label{eq.list_customer_consumption}
+\end{equation}
+\begin{equation}
+X_{d}^{n}=\big\{ X_{d,1}^{n}, X_{d,2}^{n}, X_{d,3}^{n}, ...,X_{d,t}^{n},..., X_{d,48}^{n}\big\}
+\label{eq.list_customer_consumption_daily}
+\end{equation}
 
+where $X$ is set of customer, $X^{n}$ is set of daily consumtion of custome $n$, $X_{d}^n$ is set of 30 minutes based power consumption (kWhr) of customer $n$ on day $d$. $x_{d,t}^{n}$ is power consumption of customer $n$ on day $d$ at time $t$.
+The equation~(\ref{eq.list_customer})-(\ref{eq.list_customer_consumption_daily}) are cleansing into equation~(\ref{eq.list_customer_comsumption_at_t}).
+$X^{n*}$ is set of power consumption at individual time step. $X_{t}^{n*}$ is set of power consumption at time $t$ of customer $n$.
+
+\begin{equation}
+X^{n*}=\big\{ X_{1}^{n*}, X_{2}^{n*}, X_{3}^{n*}, ..., X_{t}^{n*}, ..., X_{48}^{n*} \big\}
+\label{eq.list_customer_comsumption_at_t}
+\end{equation}
+
+The $X^{n*}$ is cleansing raw data prepared to feature extraction process. As memntion above, this paper proposed confidential interval at quantile value as extracted feature. The extracted feature processes are shown in equation~(\ref{eq.quantile_of_customer})-~(\ref{eq.quantile_of_customer_at_t}).
+
+\begin{equation}
+  Y^{n}=\big\{ Y_{1}^{n}, Y_{2}^{n}, Y_{3}^{n}, ..., Y_{t}^{n}, ..., Y_{48}^{n} \big\}
+  \label{eq.quantile_of_customer}
+\end{equation}
+
+\begin{equation}
+  Y_{t}^{n}=\big\{ Y_{t,0}^{n}, Y_{t,0.05}^{n}, Y_{t,0.1}^{n}, ..., Y_{t,q}^{n}, ..., Y_{t,1}^{n} \big\}
+  \label{eq.quantile_of_customer_at_t}
+\end{equation}
+
+Where $Y^{n}$ is representing set of extract feature of customer $n$ at individual time period, $Y_{t}^{n}$ is set of extracted feature of customer $n$ at time period $t$ which content 20 step of quantile value, $q$, (0 to 1 at 0.05 step size).
+$Y_{t,q}^{n}$ is formulated using equation~(\ref{eq.quantile_formular}).
+
+\begin{equation}
+  Y_{t,q}^{n}=\int_{0}^{q} ppf(X_{t}^{n*}) dX_{t}^{n*}
+  \label{eq.quantile_formular}
+\end{equation}
+
+Hence, we can extract customer behavior feature as well as reduce number of process data in next step.
 
 \subsection{Probability distribution constuction}
 
@@ -136,112 +189,111 @@ duration: 2 years???
 
 \subsection{Find cost and load factor}
 
-\section{Result and discussion}
+\section{Test Cases and Results}
+In this study, AMR data is collected from PEA. This dataset comprehensively records the quarter hourly kilowatt reading of 35 commercial and industrial customers. We accomulate the kilowatt reading into kilowatt hour for every 30 minutes. The AMR customer names are change to alias for information security.
+
+
+In feature extraction processes, total number of 70,272 raw data for each individual customer (2 years of collections) can be reduce to 1,920 data points (960 point for each working day and holiday).
+
 Here is results. See in \ref{tab.res_cost}, \ref{tab.res_LF}
 
 \begin{table}[]
-
-\caption{Energy cost per day}
-\begin{center}
-
-\begin{tabular}{ccccc}
-\hline
-\multirow{2}{*}{AMR-ID} & \multicolumn{2}{c}{Raw data}               & \multicolumn{2}{c}{Proposed approach (20 samples)}\\
-                        & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{mean}  & \multicolumn{1}{c}{sd} \\
-\hline
-
-                        21652 & & & 77,237 & 8,749 \\
-                        136898 & & & 155,553 & 9,814 \\
-                        137091 & & & 33,058 & 4,064 \\
-                        137138 & & & 33,287 & 4,428 \\
-                        42432 & & & 234,394 & 13,161 \\
-                        66543 & & & 10,216 & 972 \\
-                        21654 & & & 6,211 & 1,485 \\
-                        42421 & & & 64,839 & 2,910 \\
-                        42423 & & & 4,206 & 1,627 \\
-                        43958 & & & 67,014 & 5,795 \\
-                        137110 & & & 10,046 & 658 \\
-                        21655 & & & 3,201 & 577 \\
-                        42431 & & & 10,343 & 1,339 \\
-                        44834 & & & 60,980 & 2,693 \\
-                        56452 & & & 210,350 & 8,138 \\
-                        56457 & & & 34,282 & 1,600 \\
-                        56458 & & & 25,900 & 880 \\
-                        124642 & & & 61,568 & 2,779 \\
-                        124647 & & & 55,025 & 2,078 \\
-                        124649 & & & 240,474 & 8,326 \\
-                        124656 & & & 55,453 & 1,961 \\
-                        124683 & & & 12,682 & 887 \\
-                        185767 & & & 19,449 & 1,496 \\
-                        56448 & & & 49,236 & 2,403 \\
-                        136900 & & & 82,306 & 2,424 \\
-                        137094 & & & 236,504 & 14,334 \\
-                        164978 & & & 8,819 & 1,015 \\
-                        189318 & & & 146,082 & 2,761 \\
-                        193781 & & & 59,507 & 6,183 \\
-                        44318 & & & 29,833 & 2,093 \\
-                        124687 & & & 3,275 & 205 \\
-                        21689 & & & 61,861 & 3,784 \\
-                        44831 & & & 55,889 & 2,733 \\
-                        56459 & & & 9,709 & 1,210 \\
-                        124678 & & & 54,263 & 4,025 \\
-\hline
-\end{tabular}
-\label{tab.res_cost}
-\end{center}
+  \caption{Energy cost per day}
+  \begin{center}
+  \begin{tabular}{ccccc}
+  \hline
+  \multirow{2}{*}{AMR-ID} & \multicolumn{2}{c}{Raw data}               & \multicolumn{2}{c}{Proposed approach (20 samples)}\\
+                          & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{mean}  & \multicolumn{1}{c}{sd} \\
+  \hline
+                          21652 & & & 77,237 & 8,749 \\
+                          136898 & & & 155,553 & 9,814 \\
+                          137091 & & & 33,058 & 4,064 \\
+                          137138 & & & 33,287 & 4,428 \\
+                          42432 & & & 234,394 & 13,161 \\
+                          66543 & & & 10,216 & 972 \\
+                          21654 & & & 6,211 & 1,485 \\
+                          42421 & & & 64,839 & 2,910 \\
+                          42423 & & & 4,206 & 1,627 \\
+                          43958 & & & 67,014 & 5,795 \\
+                          137110 & & & 10,046 & 658 \\
+                          21655 & & & 3,201 & 577 \\
+                          42431 & & & 10,343 & 1,339 \\
+                          44834 & & & 60,980 & 2,693 \\
+                          56452 & & & 210,350 & 8,138 \\
+                          56457 & & & 34,282 & 1,600 \\
+                          56458 & & & 25,900 & 880 \\
+                          124642 & & & 61,568 & 2,779 \\
+                          124647 & & & 55,025 & 2,078 \\
+                          124649 & & & 240,474 & 8,326 \\
+                          124656 & & & 55,453 & 1,961 \\
+                          124683 & & & 12,682 & 887 \\
+                          185767 & & & 19,449 & 1,496 \\
+                          56448 & & & 49,236 & 2,403 \\
+                          136900 & & & 82,306 & 2,424 \\
+                          137094 & & & 236,504 & 14,334 \\
+                          164978 & & & 8,819 & 1,015 \\
+                          189318 & & & 146,082 & 2,761 \\
+                          193781 & & & 59,507 & 6,183 \\
+                          44318 & & & 29,833 & 2,093 \\
+                          124687 & & & 3,275 & 205 \\
+                          21689 & & & 61,861 & 3,784 \\
+                          44831 & & & 55,889 & 2,733 \\
+                          56459 & & & 9,709 & 1,210 \\
+                          124678 & & & 54,263 & 4,025 \\
+  \hline
+  \end{tabular}
+  \label{tab.res_cost}
+  \end{center}
 \end{table}
 
-
-
 \begin{table}[]
-\caption{LF per day}
-\begin{center}
-\begin{tabular}{ccccc}
-\hline
-\multirow{2}{*}{AMR-ID} & \multicolumn{2}{c}{Raw data}               & \multicolumn{2}{c}{Proposed approach (20 samples)}\\
-                        & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{mean}  & \multicolumn{1}{c}{sd} \\
-\hline
+  \caption{LF per day}
+  \begin{center}
+  \begin{tabular}{ccccc}
+  \hline
+  \multirow{2}{*}{AMR-ID} & \multicolumn{2}{c}{Raw data}               & \multicolumn{2}{c}{Proposed approach (20 samples)}\\
+                          & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{mean}  & \multicolumn{1}{c}{sd} \\
+  \hline
 
-21652 & & & 0.436 & 0.065 \\
-136898 & & & 0.410 & 0.033 \\
-137091 & & & 0.241 & 0.045 \\
-137138 & & & 0.302 & 0.049 \\
-42432 & & & 0.425 & 0.045 \\
-66543 & & & 0.289 & 0.042 \\
-21654 & & & 0.161 & 0.036 \\
-42421 & & & 0.380 & 0.033 \\
-42423 & & & 0.058 & 0.025 \\
-43958 & & & 0.701 & 0.056 \\
-137110 & & & 0.392 & 0.086 \\
-21655 & & & 0.157 & 0.047 \\
-42431 & & & 0.300 & 0.046 \\
-44834 & & & 0.501 & 0.046 \\
-56452 & & & 0.545 & 0.053 \\
-56457 & & & 0.493 & 0.052 \\
-56458 & & & 0.565 & 0.055 \\
-124642 & & & 0.529 & 0.050 \\
-124647 & & & 0.440 & 0.055 \\
-124649 & & & 0.546 & 0.048 \\
-124656 & & & 0.461 & 0.052 \\
-124683 & & & 0.388 & 0.065 \\
-185767 & & & 0.391 & 0.058 \\
-56448 & & & 0.462 & 0.042 \\
-136900 & & & 0.642 & 0.053 \\
-137094 & & & 0.306 & 0.027 \\
-164978 & & & 0.268 & 0.065 \\
-189318 & & & 0.570 & 0.046 \\
-193781 & & & 0.358 & 0.079 \\
-44318 & & & 0.451 & 0.051 \\
-124687 & & & 0.510 & 0.129 \\
-21689 & & & 0.216 & 0.013 \\
-44831 & & & 0.489 & 0.059 \\
-56459 & & & 0.232 & 0.060 \\
-124678 & & & 0.380 & 0.028 \\
-\hline
-\end{tabular}
-\label{tab.res_LF}
-\end{center}
-
+  21652 & & & 0.436 & 0.065 \\
+  136898 & & & 0.410 & 0.033 \\
+  137091 & & & 0.241 & 0.045 \\
+  137138 & & & 0.302 & 0.049 \\
+  42432 & & & 0.425 & 0.045 \\
+  66543 & & & 0.289 & 0.042 \\
+  21654 & & & 0.161 & 0.036 \\
+  42421 & & & 0.380 & 0.033 \\
+  42423 & & & 0.058 & 0.025 \\
+  43958 & & & 0.701 & 0.056 \\
+  137110 & & & 0.392 & 0.086 \\
+  21655 & & & 0.157 & 0.047 \\
+  42431 & & & 0.300 & 0.046 \\
+  44834 & & & 0.501 & 0.046 \\
+  56452 & & & 0.545 & 0.053 \\
+  56457 & & & 0.493 & 0.052 \\
+  56458 & & & 0.565 & 0.055 \\
+  124642 & & & 0.529 & 0.050 \\
+  124647 & & & 0.440 & 0.055 \\
+  124649 & & & 0.546 & 0.048 \\
+  124656 & & & 0.461 & 0.052 \\
+  124683 & & & 0.388 & 0.065 \\
+  185767 & & & 0.391 & 0.058 \\
+  56448 & & & 0.462 & 0.042 \\
+  136900 & & & 0.642 & 0.053 \\
+  137094 & & & 0.306 & 0.027 \\
+  164978 & & & 0.268 & 0.065 \\
+  189318 & & & 0.570 & 0.046 \\
+  193781 & & & 0.358 & 0.079 \\
+  44318 & & & 0.451 & 0.051 \\
+  124687 & & & 0.510 & 0.129 \\
+  21689 & & & 0.216 & 0.013 \\
+  44831 & & & 0.489 & 0.059 \\
+  56459 & & & 0.232 & 0.060 \\
+  124678 & & & 0.380 & 0.028 \\
+  \hline
+  \end{tabular}
+  \label{tab.res_LF}
+  \end{center}
 \end{table}
 
 
@@ -263,6 +315,7 @@ I am vary grateful to Mr. Pradya Panyainkeaw, AMR division, PEA, Thailand for su
 \bibitem{b3} Chaweewat P., Singh J. G. , Ongsakul W. A Two Stages Pattern Recognition for Time-of-use Customers based on Behavior Analytic by Using Gaussian Mixture Models and K-mean Clustering: a Case Study of PEA, Thailand, 2018 International Conference and Utility Exhibition on Green Energy for Sustainable Development (ICUE)
 \bibitem{b4} N. Yu, S. Shah, R. Johnson, R. Sherick, M. Hong, and K. Loparo, “Big data analytics in power distribution systems,” 2015 IEEE Power Energy Soc. Innov. Smart Grid Technol. Conf., pp. 1–5, 2015.
 \bibitem{b5} Y. Wang, Q. Chen, C. Kang, and Q. Xia, “Clustering of Electricity Consumption Behavior Dynamics Toward Big Data Applications,” IEEE Trans. Smart Grid, vol. 7, no. 5, pp. 2437–2447, 2016
+\bibitem{b6} W. Kong, Z. Y. Dong, D. J. Hill, F. Luo and Y. Xu, "Short-Term Residential Load Forecasting Based on Resident Behaviour Learning," in IEEE Transactions on Power Systems, vol. 33, no. 1, pp. 1087-1088, Jan. 2018.
 % \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
 \end{thebibliography}
 
