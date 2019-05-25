@@ -150,36 +150,28 @@ X^{n}=\big\{ X_{1}^{n}, X_{2}^{n}, X_{3}^{n}, ...,X_{d}^{n},..., X_{366}^{n}\big
 X_{d}^{n}=\big\{ X_{d,1}^{n}, X_{d,2}^{n}, X_{d,3}^{n}, ...,X_{d,t}^{n},..., X_{d,48}^{n}\big\}
 \label{eq.list_customer_consumption_daily}
 \end{equation}
-
 where $X$ is set of customer, $X^{n}$ is set of daily consumtion of custome $n$, $X_{d}^n$ is set of 30 minutes based power consumption (kWhr) of customer $n$ on day $d$. $x_{d,t}^{n}$ is power consumption of customer $n$ on day $d$ at time $t$.
 The equation~(\ref{eq.list_customer})-(\ref{eq.list_customer_consumption_daily}) are cleansing into equation~(\ref{eq.list_customer_comsumption_at_t}).
 $X^{n*}$ is set of power consumption at individual time step. $X_{t}^{n*}$ is set of power consumption at time $t$ of customer $n$.
-
 \begin{equation}
 X^{n*}=\big\{ X_{1}^{n*}, X_{2}^{n*}, X_{3}^{n*}, ..., X_{t}^{n*}, ..., X_{48}^{n*} \big\}
 \label{eq.list_customer_comsumption_at_t}
 \end{equation}
-
 The $X^{n*}$ is cleansing raw data prepared to feature extraction process. As memntion above, this paper proposed confidential interval at quantile value as extracted feature. The extracted feature processes are shown in equation~(\ref{eq.quantile_of_customer})-~(\ref{eq.quantile_of_customer_at_t}).
-
 \begin{equation}
   Y^{n}=\big\{ Y_{1}^{n}, Y_{2}^{n}, Y_{3}^{n}, ..., Y_{t}^{n}, ..., Y_{48}^{n} \big\}
   \label{eq.quantile_of_customer}
 \end{equation}
-
 \begin{equation}
   Y_{t}^{n}=\big\{ Y_{t,0}^{n}, Y_{t,0.05}^{n}, Y_{t,0.1}^{n}, ..., Y_{t,q}^{n}, ..., Y_{t,1}^{n} \big\}
   \label{eq.quantile_of_customer_at_t}
 \end{equation}
-
 Where $Y^{n}$ is representing set of extract feature of customer $n$ at individual time period, $Y_{t}^{n}$ is set of extracted feature of customer $n$ at time period $t$ which content 20 step of quantile value, $q$, (0 to 1 at 0.05 step size).
 $Y_{t,q}^{n}$ is formulated using equation~(\ref{eq.quantile_formular}).
-
 \begin{equation}
   Y_{t,q}^{n}=\int_{0}^{q} ppf(X_{t}^{n*}) dX_{t}^{n*}
   \label{eq.quantile_formular}
 \end{equation}
-
 Hence, we can extract customer behavior feature as well as reduce number of process data in next step.
 
 \subsection{Probability distribution constuction}
