@@ -76,6 +76,15 @@ In addition, other states variables also transported.
 % why amr is need?
 
 % why need to analysis pattern
+In previous work, there is observation that the forecasting accuracy highly depend on hourly load patterns incorporate with other variables\cite{b2}. In addition, it can also help in long term applications i.e., model customer behavior under various incentive and pricing structures, planning processes\cite{b4}.
+
+
+% why monte carlo simulation
+Monte Carlo simulation is a computerized mathematical technique that allows people to account for risk in quantitative analysis and decision making. The technique is used by professionals in such widely disparate fields as finance, project management, energy, manufacturing, engineering, research and development, insurance, oil & gas, transportation, and the environment.
+
+Monte Carlo simulation furnishes the decision-maker with a range of possible outcomes and the probabilities they will occur for any choice of action.. It shows the extreme possibilities—the outcomes of going for broke and for the most conservative decision—along with all possible consequences for middle-of-the-road decisions.
+
+The technique was first used by scientists working on the atom bomb; it was named for Monte Carlo, the Monaco resort town renowned for its casinos. Since its introduction in World War II, Monte Carlo simulation has been used to model a variety of physical and conceptual systems.
 
 
 \section{Literature reviews}
@@ -90,21 +99,35 @@ The big data has brought numberous tengible benefits to utilities and electricit
 \item \textit{Better Customer Experience & Satisfaction} here is examples
 \end{itemize}
 
-
 There is several benefits of deploying AMR at homes and office. The mass rollout enables easier billing, fraud detection, forewarning of blackouts, smart real-time pricing schemes, demand response and efficient energy utilization.
 However, to acheive aboved benefits, there need advanced data analytics, especailly customer behavior analysis, which is the main motivation of this study.
 
+In addition, the customer pattern also was clustered using Markov model with CFSFDP\cite{b5}
 %which method was used to formulate customer pattern
+In previous works, electrical customer consumption's pattern is formulated using various approach. Gaussian mixture model (GMM) is proposed to formaulate individual AMR-based electricity comsumption pattern\cite{b3}.
+
+The contribution of this work is ...
+
 
 \section{Problem Formulation}
 Here is Problem formulation.
+The overall methodology is shown in Figure\ref{fig.overall_methodology}
+
+\begin{figure}[htbp]
+\centerline{\includegraphics{images/overall_methodology.png}}
+\caption{Conceptual methodology}
+\label{fig.overall_methodology}
+\end{figure}
+
+
 
 \subsection{Data collection}
 where the data comes from: PEA
 total number of AMR customer:
 duration: 2 years???
-\subsection{Pattern formulation using confidence interval}
-Use quantile at 0 to 1 with 0.05 step.
+\subsection{Pattern formulation using confidence intervals for quantiles calculation}
+
+
 
 \subsection{Probability distribution constuction}
 
@@ -114,10 +137,13 @@ Use quantile at 0 to 1 with 0.05 step.
 \subsection{Find cost and load factor}
 
 \section{Result and discussion}
-Here is results.
+Here is results. See in \ref{tab.res_cost}, \ref{tab.res_LF}
 
 \begin{table}[]
+
 \caption{Energy cost per day}
+\begin{center}
+
 \begin{tabular}{ccccc}
 \hline
 \multirow{2}{*}{AMR-ID} & \multicolumn{2}{c}{Raw data}               & \multicolumn{2}{c}{Proposed approach (20 samples)}\\
@@ -161,12 +187,15 @@ Here is results.
                         124678 & & & 54,263 & 4,025 \\
 \hline
 \end{tabular}
+\label{tab.res_cost}
+\end{center}
 \end{table}
 
 
 
 \begin{table}[]
 \caption{LF per day}
+\begin{center}
 \begin{tabular}{ccccc}
 \hline
 \multirow{2}{*}{AMR-ID} & \multicolumn{2}{c}{Raw data}               & \multicolumn{2}{c}{Proposed approach (20 samples)}\\
@@ -210,6 +239,9 @@ Here is results.
 124678 & & & 0.380 & 0.028 \\
 \hline
 \end{tabular}
+\label{tab.res_LF}
+\end{center}
+
 \end{table}
 
 
@@ -223,11 +255,14 @@ The major contribution of this work is to propose new simulation univariate mont
 I am vary grateful to Mr. Pradya Panyainkeaw, AMR division, PEA, Thailand for supplying data, and AIT, PEA for financial support.
 
 
-\section{References}
+\section*{References}
 
 \begin{thebibliography}{00}
 \bibitem{b1} Depuru SSSR, Wang L, Devabhaktuni V. Smart meters for power grid: challenges, issues, advantages and status. Renew Sustain Energy Rev 2011;15(6):2736–42.
-
+\bibitem{b2} Srinivasan D. Evolving artificial neural networks for short term load forecasting. Neurocomputing 1998;23:265–76.1534.
+\bibitem{b3} Chaweewat P., Singh J. G. , Ongsakul W. A Two Stages Pattern Recognition for Time-of-use Customers based on Behavior Analytic by Using Gaussian Mixture Models and K-mean Clustering: a Case Study of PEA, Thailand, 2018 International Conference and Utility Exhibition on Green Energy for Sustainable Development (ICUE)
+\bibitem{b4} N. Yu, S. Shah, R. Johnson, R. Sherick, M. Hong, and K. Loparo, “Big data analytics in power distribution systems,” 2015 IEEE Power Energy Soc. Innov. Smart Grid Technol. Conf., pp. 1–5, 2015.
+\bibitem{b5} Y. Wang, Q. Chen, C. Kang, and Q. Xia, “Clustering of Electricity Consumption Behavior Dynamics Toward Big Data Applications,” IEEE Trans. Smart Grid, vol. 7, no. 5, pp. 2437–2447, 2016
 % \bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
 \end{thebibliography}
 
