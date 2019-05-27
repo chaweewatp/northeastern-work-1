@@ -203,14 +203,44 @@ where $a$ and $b$ is lower and upper kilowatt-hour in range $\big[ a,b \big]$.
 
 \subsection{Monte carlo simulation}
 
+From $Z^{n}$, monte carlo simulation generate electricity consumption as
+
+\begin{equation}
+P^{n}=\big\{ P_{1}^{n}, P_{2}^{n}, P_{3}^{n}, ..., P_{i}^{n}, ..., P_{m}^{n}\big\}
+\label{eq.generated_kW_cust_n}
+\end{equation}
+\begin{equation}
+P_{i}^{n}=\big\{ P_{i,1}^{n}, P_{i,2}^{n}, P_{i,3}^{n}, ..., P_{i,t}^{n}, ..., P_{i,48}^{n}\big\}
+\label{eq.generated_kW_cust_n_at_sample_i}
+\end{equation}
+
+where $m$ is number of samples. $P_{i,t}^{n}$ is generated electricity consumption of customer $n$ at time $t$ at sample $i$.
+
 
 \subsection{Find cost and load factor}
+
+
+\begin{equation}
+C_{i}^{n}=\sum_{t=1}^{48}   P_{i,t}^{n} \times a_{t}
+\label{eq.cost}
+\end{equation}
+
+where $C_{i}^{n}$ is cost of energy purchasing of customer $n$ at sample $i$, $a_{t}$ is electricity tariff at time $t$.
+
+\begin{equation}
+\text{LF}_{i}^{n}=\frac{\text{average}(P_{i}^{n})}{\text{max}(P_{i}^{n})}
+\label{eq.load_factor}
+\end{equation}
+
+where $\text{LF}_{i}^{n}$ is load factor of customer $n$ at sample $i$.
 
 \section{Test Cases and Results}
 In this study, AMR data is collected from PEA. This dataset comprehensively records the quarter hourly kilowatt reading of 35 commercial and industrial customers. We accomulate the kilowatt reading into kilowatt hour for every 30 minutes. The AMR customer names are change to alias for information security.
 
 In feature extraction processes, total number of 70,272 raw data for each individual customer (2 years of collections) can be reduce to 1,920 data points (960 point for each working day and holiday).
 
+
+The result of MC simulation with numbers of samples (20 samples) are consider as witness in this study
 Here is results. See in \ref{tab.res_cost}, \ref{tab.res_LF}
 
 \begin{table}[]
