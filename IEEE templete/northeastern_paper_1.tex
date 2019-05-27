@@ -80,11 +80,11 @@ In previous work, there is observation that the forecasting accuracy highly depe
 
 
 % why monte carlo simulation
-Monte Carlo simulation is a computerized mathematical technique that allows people to account for risk in quantitative analysis and decision making. The technique is used by professionals in such widely disparate fields as finance, project management, energy, manufacturing, engineering, research and development, insurance, oil & gas, transportation, and the environment.
-
-Monte Carlo simulation furnishes the decision-maker with a range of possible outcomes and the probabilities they will occur for any choice of action.. It shows the extreme possibilities—the outcomes of going for broke and for the most conservative decision—along with all possible consequences for middle-of-the-road decisions.
-
-The technique was first used by scientists working on the atom bomb; it was named for Monte Carlo, the Monaco resort town renowned for its casinos. Since its introduction in World War II, Monte Carlo simulation has been used to model a variety of physical and conceptual systems.
+% Monte Carlo simulation is a computerized mathematical technique that allows people to account for risk in quantitative analysis and decision making. The technique is used by professionals in such widely disparate fields as finance, project management, energy, manufacturing, engineering, research and development, insurance, oil & gas, transportation, and the environment.
+%
+% Monte Carlo simulation furnishes the decision-maker with a range of possible outcomes and the probabilities they will occur for any choice of action.. It shows the extreme possibilities—the outcomes of going for broke and for the most conservative decision—along with all possible consequences for middle-of-the-road decisions.
+%
+% The technique was first used by scientists working on the atom bomb; it was named for Monte Carlo, the Monaco resort town renowned for its casinos. Since its introduction in World War II, Monte Carlo simulation has been used to model a variety of physical and conceptual systems.
 
 
 %contribution
@@ -168,13 +168,36 @@ The $X^{n*}$ is cleansing raw data prepared to feature extraction process. As me
 \end{equation}
 Where $Y^{n}$ is representing set of extract feature of customer $n$ at individual time period, $Y_{t}^{n}$ is set of extracted feature of customer $n$ at time period $t$ which content 20 step of quantile value, $q$, (0 to 1 at 0.05 step size).
 $Y_{t,q}^{n}$ is formulated using equation~(\ref{eq.quantile_formular}).
+
 \begin{equation}
-  Y_{t,q}^{n}=\int_{0}^{q} ppf(X_{t}^{n*}) dX_{t}^{n*}
+  Y_{t,q}^{n}=\int_{q-1}^{q} F_{X^{n*}}(q) dq
   \label{eq.quantile_formular}
 \end{equation}
+Where $F_{X^{n*}}$ is commulative distribution function of power consumption of customer $n$ at time $t$. So, $Y_{t,q}^{n}$ is expected power consumption of customer $n$ at time period $t$, and quantile $q$.
+
 Hence, we can extract customer behavior feature as well as reduce number of process data in next step.
 
-\subsection{Probability distribution constuction}
+\subsection{Continuous Probability Distribution constuction}
+
+\begin{equation}
+Z^{n}=\big\{ Z_{0}^{n}, Z_{1}^{n}, Z_{3}^{n}, ..., Z_{t}^{n}, ..., Z_{48}^{n} \big\}
+\label{eq.CPD_customer}
+\end{equation}
+\begin{equation}
+Z_{t}^{n}=\big\{ z_{0,50}^{n}, z_{50,100}^{n}, z_{100,150}^{n}, ..., z_{a,b}^{n}, ..., z_{19500,2000}^{n} \big\}
+\label{eq.CPD_customer_at_t}
+\end{equation}
+where $Z^{n}$ is set of continous probability distribution function of power consumption of customer $n$.
+$Z_{t}^{n}$ is set of continous probability distribution function of power consumption of customer $n$ at time $t$ with difference consumption range (from 0 to 20,000 kiloWatt-hour with 50 kiloWatt-hour step size).
+$z_{a,b}^{n}$ is probability of power consumption between lower $a$ and upper $b$ kiloWatt-hour of customer $n$ which is be formulation by equation~(\ref{eq.cpd_construction}).
+
+
+\begin{equation}
+z_{a,b}^{n}=\text{P}\big[ a \le Y_{t}^{n} \le b \big] = \int_{a}^{b} Y_{t}^{n}dY_{t}^{n}
+\label{eq.cpd_construction}
+\end{equation}
+
+where $a$ and $b$ is lower and upper kilowatt-hour in range $\big[ a,b \big]$.
 
 \subsection{Monte carlo simulation}
 
@@ -183,7 +206,6 @@ Hence, we can extract customer behavior feature as well as reduce number of proc
 
 \section{Test Cases and Results}
 In this study, AMR data is collected from PEA. This dataset comprehensively records the quarter hourly kilowatt reading of 35 commercial and industrial customers. We accomulate the kilowatt reading into kilowatt hour for every 30 minutes. The AMR customer names are change to alias for information security.
-
 
 In feature extraction processes, total number of 70,272 raw data for each individual customer (2 years of collections) can be reduce to 1,920 data points (960 point for each working day and holiday).
 
