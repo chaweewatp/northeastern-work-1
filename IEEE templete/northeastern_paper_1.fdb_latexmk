@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1558983756 "northeastern_paper_1.tex" "northeastern_paper_1.pdf" "northeastern_paper_1" 1558983756
+["pdflatex"] 1559076508 "northeastern_paper_1.tex" "northeastern_paper_1.pdf" "northeastern_paper_1" 1559076508
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1480098689 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -91,8 +91,8 @@
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
   "IEEEtran.cls" 1440654524 288304 b67b6fc6c2abb39f9b461923f5199343 ""
   "images/overall_methodology.png" 1558919570 111905 099e09f5a6b9c6d11864f8b83322ff5f ""
-  "northeastern_paper_1.aux" 1558983756 2241 485722c278bd9eb267a368e1ee61caca ""
-  "northeastern_paper_1.tex" 1558983751 32612 69bdc86dfd2f151227048446cae3e70d ""
+  "northeastern_paper_1.aux" 1559076508 2295 b69e0da0c2ad739cb437c5eb325c02b6 ""
+  "northeastern_paper_1.tex" 1559076503 32604 cb9112ccdd7b1f725dd3d28646504526 ""
   (generated)
   "northeastern_paper_1.pdf"
   "northeastern_paper_1.log"
