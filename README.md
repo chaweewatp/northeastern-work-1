@@ -27,3 +27,7 @@ Methodology runnin multi carlo simulation of load pattern
   P(X|Y=0MW), P(X|0MW < Y < 0.001MW), ...
 
 3. xxxxxxxx
+
+
+Note to discuss results
+- use robust statistic to comparing result
